@@ -1,0 +1,162 @@
+Hashing is mostly used to implement dictionary where you have key value pairs
+it is also used to implement set where you have only keys set of keys
+Best part is that Hashing will help in search, insert, delete in Big O(1) RunTime.
+
+In HashTable we only have unique elements
+
+Hashing beats all other datastructure in (search, insert, delete) optation 
+
+
+
+/// Hashing is NotUseful when ///
+1. Finding closest vlaues
+2. Sorted data
+3. Prefix Searching 
+
+// Application of Hashing
+1. Dictionaries
+2. Database Indexing
+3. Cryptography.
+4. Cashes.
+5. Symbol Table in Compilers/Interpreters.
+6. Routers.
+7. Gatting data form databases.
+8. Many More. 
+
+////////////////////////////////////////////
+Direct Address Table
+///////////////////////////////////////////
+Imagin a situation where you have 1000 keys with values form (0 to 999) how would you implement following in O(1) functions
+1. Search
+2. Insert.
+3. Delete.
+
+Example optation
+
+------------------------------------------------------------------
+|0|0|..........|0|......|0|................|0|...............|0 |0|
+------------------------------------------------------------------
+ 0 1 ..........10.......20.................119...............998 999
+
+ we will create a boolean array of size 1000 and we will initialize the array by 0(false in java) in each and every index
+
+ now when we do "insert(10)" then we will go to the respective index and change it to 1(or true in java) and visversa for delete opration
+
+simelerly
+insert(20);
+insert(119);
+
+------------------------------------------------------------------
+|0|0|..........|1|......|1|................|1|...............|0 |0|
+------------------------------------------------------------------
+ 0 1 ..........10.......20.................119...............998 999
+
+when we perform search(10) we will go to the respective index 
+and find its value and if it is 1(or true) then we will say element is present otherwise not.
+since array supprot random access all these opration are will take Big O(1) time. 
+
+
+insert(i){
+    table[i] = 1(true);
+}
+
+delete(i){
+    table[i] = 0 (flase);
+}
+
+search(i){
+    return table[i];
+}
+
+// problums with Direct Index table //
+1. It cannot handle large values
+2. It cannot handel the floating point numbers (how floating point can represent index)
+3. Keys can be string or they can be address direct index table can not handle them.
+
+
+////// " Hashing Intorduction " ///////
+----------------------------------------
+_______________________                                       _______________________
+|                     |                                      0|______________________|
+|   Universe of       |-->[Hash Function]------------------->1|______________________|
+|       Keys          |                                       |           -          |
+|                     |                                       |           -          |
+|_____________________|                                       |           -          |
+                                                              |           -          |
+                                                              |           -          |
+                                                              |           -          |
+                                                              |           -          |
+                                                              |           -          |
+                                                              |______________________|
+                                                              |______________________|
+                                                              Hash Table
+
+when we talk about keys as large number or as string or as a Mixed char and numbers 
+then there is big universe for this type of keys so we can take these keys pass it to
+hash function and hashfunction will perform some work that make these keys in small
+vlaues that we can use as an index.
+
+
+how HashFunction works?
+1. Should always map a large key to same small key.
+2. Should generate vlaues form 0 to n-1;
+3. Should ne fast, O(1) form integers and O(len) time for Strings
+4. Should uniformly distribute large keys into HashTable slots.
+
+
+Example HashFunction
+
+h(large.key) = large.key%m;
+we try to chose prime number which are not close to 2^n 
+
+2. For String, weighted sum
+str[] = "abcd"
+(str[0] *x^0 + str[1] * x^1 + str[2] * x^2 + str[3] * x^4 )%m
+
+3. Universal Hashing
+
+
+////////////////Collision Handling//////////////////////////
+Colling is one of Biggest problums and if we do not know keys in advance then colisions are bound to happen.
+
+
+if we know keys in advance, then we can perform Hashing
+if we do not know keys, then we use one of the following 
+
+    |
+    |----> Chaining : in chaining we make a chaining of coliding items 
+    |
+    |----> Open Addressing : we use the same array and if a posstion is occupied we try to put this key in some other slot.
+                |
+                |-----> Linear problums
+                |-----> Quadratic Parsing
+                |-----> Double Hashing
+
+
+////// Chaining
+
+we maintain an array of linked list headers
+
+    hash(key) key%7;
+key = {50, 21, 58, 17, 15, 49, 56, 22, 23, 25}
+
+        ----------------------    ____     ____
+        |        21          |-->|____|-->|____|
+        ----------------------
+        |                    |
+        ----------------------
+        |                    |
+        ----------------------
+        |                    |
+        ----------------------
+        |                    |
+        ----------------------
+        |                    |
+        ----------------------
+        |                    |
+        ----------------------
+        |                    |
+        ----------------------
+
+
+
